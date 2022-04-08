@@ -1,9 +1,9 @@
-
+import Register from "./pages/Register";
 
 function App() {
   return (
     <div className="App">
-      <h1>This is App</h1>
+      <Register />
     </div>
   );
 }
