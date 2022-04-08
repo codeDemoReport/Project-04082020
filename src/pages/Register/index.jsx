@@ -1,8 +1,10 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Avatar, Button, Grid, Link, Typography } from "@mui/material";
+import { Avatar, Button, Grid, Typography } from "@mui/material";
+
 import { Box } from "@mui/system";
 import { Form, Formik } from "formik";
 import React from "react";
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import Copyright from "../../components/Copyright";
 import CustomField from "../../components/CustomField";
@@ -75,8 +77,8 @@ function Register(props) {
               Register
             </Button>
             <Grid container sx={{ marginTop: 2 }}>
-              <Grid item sx={{ marginLeft: "190px" }}>
-                <Link href="#" variant="body2">
+              <Grid item sx={{ marginLeft: "150px" }}>
+                <Link to="/login" variant="body2">
                   {"Already have an account? Sign in"}
                 </Link>
               </Grid>

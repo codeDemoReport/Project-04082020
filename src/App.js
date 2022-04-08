@@ -7,11 +7,13 @@ import ModifyUser from "./pages/ListUser/ModifyUser";
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import { Router } from "react-router-dom";
+import Header from "./components/Header"
 
 function App() {
   return (
     <div className="App">
       <Router history={history}>
+        <Header />
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/login" component={Login} exact />
