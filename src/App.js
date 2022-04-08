@@ -18,7 +18,7 @@ function App() {
           <Route path="/login" component={Login} exact />
           <Route path="/list-user" component={ListUser} exact />
           <Route path="/list-user/add" component={ModifyUser} exact />
-          <Route path="/list-user/edit" component={ModifyUser} exact />
+          <Route path="/list-user/edit/:id" component={ModifyUser} exact />
           <Route path="/register" component={Register} exact />
         </Switch>
       </Router>
