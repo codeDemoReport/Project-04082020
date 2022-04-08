@@ -1,0 +1,14 @@
+.home {
+    display: flex;
+    justify-content: center;
+
+    &__container {
+        width: 400px;
+        text-align: center;
+    }
+
+    &__checkbox {
+        display: flex;
+        justify-content: start;
+    }
+}
