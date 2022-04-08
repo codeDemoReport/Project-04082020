@@ -7,7 +7,8 @@ import ModifyUser from "./pages/ListUser/ModifyUser";
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import { Router } from "react-router-dom";
-import Header from "./components/Header"
+import { ToastContainer } from "react-toastify";
+import Header from "./components/Header";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/register" component={Register} exact />
         </Switch>
       </Router>
+      <ToastContainer />
     </div>
   );
 }
