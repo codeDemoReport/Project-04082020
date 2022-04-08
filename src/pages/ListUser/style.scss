@@ -1,0 +1,13 @@
+.user{
+    max-width: 1200px;
+    margin: 0 auto;
+
+    &__title {
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    &__icon {
+        display: flex;
+    }
+}

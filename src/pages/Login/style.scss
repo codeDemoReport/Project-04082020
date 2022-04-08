@@ -1,9 +1,11 @@
 .login {
     display: flex;
     justify-content: center;
+    height: 100vh;
 
     &__container {
         width: 400px;
+        margin: auto 0;
         text-align: center;
     }
 }

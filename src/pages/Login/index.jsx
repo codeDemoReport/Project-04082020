@@ -38,7 +38,7 @@ function Login(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Login
           </Typography>
         </Box>
         <Formik
