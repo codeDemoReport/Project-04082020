@@ -8,11 +8,13 @@ import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import { Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Header from "./components/Header";
 
 function App() {
   return (
     <div className="App">
       <Router history={history}>
+        <Header />
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/login" component={Login} exact />

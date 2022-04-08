@@ -28,3 +28,29 @@ export const dataArr = [
     type: "password",
   },
 ];
+
+export const MenuLeftHeader = [
+  {
+    title: "Home",
+    path: "/"
+  },
+  {
+    title: "Users",
+    path: "/list-user"
+  },
+  {
+    title: "Blog",
+    path: "/blog"
+  }
+]
+
+export const MenuRightHeader = [
+  {
+    title: "Login",
+    path: "/login"
+  },
+  {
+    title: "Register",
+    path: "/register"
+  }
+]
