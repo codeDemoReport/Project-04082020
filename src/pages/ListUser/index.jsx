@@ -14,6 +14,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import "./style.scss";
 import CustomDialog from "../../components/CustomDialog";
+import history from "../../utils/history";
 
 function ListUser(props) {
   const [openDelete, setOpenDelete] = useState(false);
@@ -24,9 +25,13 @@ function ListUser(props) {
 
   return (
     <section className="user">
-      <h1 className="user__title">List User</h1>
+      <h1 className="user__title">LIST USER</h1>
       <Box className="user__container">
-        <Button variant="contained" sx={{ margin: "12px 0", float: "right" }}>
+        <Button
+          variant="contained"
+          sx={{ margin: "12px 0", float: "right" }}
+          onClick={() => history.push("/list-user/add")}
+        >
           Add New User
         </Button>
         <TableContainer component={Paper}>
@@ -56,7 +61,7 @@ function ListUser(props) {
                 <TableCell>12345678</TableCell>
                 <TableCell>
                   <Box className="user__icon">
-                    <div>
+                    <div onClick={() => history.push("/list-user/edit")}>
                       <EditIcon
                         sx={{
                           fontSize: "2rem",

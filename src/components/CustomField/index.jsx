@@ -16,7 +16,7 @@ function CustomField({ name, label, placeholder, type }) {
             {...field}
             label={placeholder}
             variant="outlined"
-            type={type ? type : "text"}
+            type={type}
           />
         )}
       </Field>
