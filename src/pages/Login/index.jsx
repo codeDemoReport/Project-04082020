@@ -22,7 +22,7 @@ function Login(props) {
     password: "",
   };
   const validateSchema = Yup.object().shape({
-    email: Yup.string().required("Required!").email("Email Invalid!"),
+    email: Yup.string().required("Required!").email("Invalid Email!"),
     password: Yup.string().min(8, "Too Short!").required("Required!"),
   });
 
@@ -51,6 +51,7 @@ function Login(props) {
               name="email"
               label="Email"
               placeholder="Enter your email..."
+              type="text"
             />
             <CustomField
               name="password"
