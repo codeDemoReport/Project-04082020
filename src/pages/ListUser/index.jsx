@@ -1,7 +1,7 @@
 import React from "react";
 
-function Test(props) {
+function ListUser(props) {
   return <div></div>;
 }
 
-export default Test;
+export default ListUser;
