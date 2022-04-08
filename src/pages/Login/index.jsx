@@ -9,11 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import Copyright from "../../components/Copyright";
 import CustomField from "../../components/CustomField";
+import { toastError, toastSuccess } from "./../../utils/toast";
 import "./style.scss";
 
 function Login(props) {
@@ -27,7 +29,17 @@ function Login(props) {
   });
 
   const handleSubmitForm = (values) => {
-    console.log(values);
+    axios
+      .post("http://192.168.68.51:3000/api/auth/login", values)
+      .then((infoUser) => {
+        localStorage.setItem("token", infoUser.data.accessToken);
+        toastSuccess("Đăng nhập thành công!");
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          toastError(err.response.data.error);
+        }
+      });
   };
 
   return (
