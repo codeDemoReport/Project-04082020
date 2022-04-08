@@ -17,7 +17,6 @@ function CustomField({ name, label, placeholder, type }) {
             label={placeholder}
             variant="outlined"
             type={type ? type : "text"}
-            className="field__input"
           />
         )}
       </Field>
