@@ -1,0 +1,24 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+
+  &__label {
+    margin: 16px 0 12px;
+  }
+
+  &__input {
+    width: 600px;
+  }
+
+  &__btn {
+    margin: 24px 0;
+    float: right;
+  }
+
+  &__error {
+    color: red;
+    margin: 4px 0;
+  }
+}
