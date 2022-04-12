@@ -135,7 +135,12 @@ function Header(props) {
                     />
                     <Typography
                       variant="p"
-                      sx={{ color: "white", marginLeft: "5px" }}
+                      sx={{
+                        color: "white",
+                        marginLeft: "5px",
+                        fontSize: "1.2rem",
+                        fontFamily: "sans-serif",
+                      }}
                     >
                       {user.fullName}
                     </Typography>

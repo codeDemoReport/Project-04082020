@@ -66,7 +66,7 @@ export const SET_USER_EDIT = "SET_USER_EDIT";
 
 export const SET_EMAIL_VERYFY = "SET_EMAIL_VERYFY";
 export const LOGOUT = "LOGOUT";
-
+export const PROGRESS = "PROGRESS";
 export const dataFieldRegister = [
   {
     name: "fullName",
