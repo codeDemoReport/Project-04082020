@@ -19,6 +19,7 @@ import history from "../../utils/history";
 const url = "http://192.168.68.51:3000/api";
 
 export const login = (params) => async (dispatch) => {
+  const { checkRemember } = params;
   try {
     const response = await axios.post(`${url}/auth/login`, { ...params });
 
@@ -27,7 +28,18 @@ export const login = (params) => async (dispatch) => {
       payload: response.data.user,
     });
     localStorage.setItem("token", response.data.accessToken);
-    localStorage.setItem("prevUser", response.data.user.email);
+    localStorage.setItem(
+      "info",
+      JSON.stringify({
+        email: response.data.user.email,
+        fullName: response.data.user.fullName,
+        role: response.data.user.isAdmin,
+      })
+    );
+    localStorage.removeItem("prevEmail");
+    if (checkRemember) {
+      localStorage.setItem("prevEmail", response.data.user.email);
+    }
     toastSuccess("Đăng nhập thành công!");
     history.push("/");
   } catch (error) {

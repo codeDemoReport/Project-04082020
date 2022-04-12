@@ -3,7 +3,7 @@ import { ErrorMessage, Field } from "formik";
 import React from "react";
 import "./style.scss";
 
-function CustomField({ name, label, placeholder, type, disabled }) {
+function CustomField({ name, label, placeholder, type, disabled, prevEmail }) {
   return (
     <section className="field">
       <label className="field__label" htmlFor={name}>
@@ -18,6 +18,7 @@ function CustomField({ name, label, placeholder, type, disabled }) {
             variant="outlined"
             type={type}
             disabled={disabled ? true : false}
+            className={prevEmail ? "field__active" : ""}
           />
         )}
       </Field>
