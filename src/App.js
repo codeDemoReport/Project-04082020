@@ -9,6 +9,8 @@ import { Switch } from "react-router-dom";
 import { Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
+import WatingVerify from "./pages/verifyEmail/WatingVerify"
+import VerifyToken from "./pages/verifyEmail/VerifyToken"
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/list-user/add" component={ModifyUser} exact />
           <Route path="/list-user/edit/:id" component={ModifyUser} exact />
           <Route path="/register" component={Register} exact />
+          <Route path={"/verify-register"} component={WatingVerify} exact />
+          <Route path={"/verify-register/:token"} component={VerifyToken} exact/>
         </Switch>
       </Router>
       <ToastContainer />

@@ -70,3 +70,33 @@ export const EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
 export const EDIT_USER_FAIL = "EDIT_USER_FAIL";
 
 export const SET_USER_EDIT = "SET_USER_EDIT";
+
+export const SET_EMAIL_VERYFY = "SET_EMAIL_VERYFY";
+export const LOGOUT = "LOGOUT";
+
+export const dataFieldRegister = [
+  {
+    name: "fullName",
+    label: "Full Name",
+    placeholder: "Enter your name",
+    type: "text"
+  },
+  {
+    name: "email",
+    label: "Email",
+    placeholder: "Enter your email",
+    type: "email"
+  },
+  {
+    name: "password",
+    label: "Password",
+    placeholder: "Enter your password",
+    type: "password"
+  },
+  {
+    name: "cfPassword",
+    label: "Confirm Password",
+    placeholder: "Confirm your password",
+    type: "password"
+  },
+]

@@ -10,6 +10,8 @@ import {
   GET_LIST_USER_SUCCESS,
   LOGIN_SUCCESS,
   SET_USER_EDIT,
+  SET_EMAIL_VERYFY,
+  LOGOUT
 } from "../../constant";
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   dataEdit: {},
   getUserEdit: {},
   infoUser: {},
+  emailVerify: ""
 };
 
 function userReducer(state = initialState, action) {
@@ -29,6 +32,12 @@ function userReducer(state = initialState, action) {
         infoUser: { ...action.payload },
       };
     }
+    case LOGOUT: {
+      return {
+        ...state,
+        infoUser: action.payload,
+      };
+      }
     case GET_LIST_USER_SUCCESS: {
       return {
         ...state,
@@ -71,6 +80,12 @@ function userReducer(state = initialState, action) {
         getUserEdit: { ...action.payload },
       };
     }
+    case SET_EMAIL_VERYFY: {
+      return {
+        ...state,
+        emailVerify: action.payload
+      }
+      }
     default:
       return state;
   }
