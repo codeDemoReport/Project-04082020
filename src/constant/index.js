@@ -63,3 +63,33 @@ export const GET_LIST_USER_FAIL = "GET_LIST_USER_FAIL";
 export const DELETE_USER = "DELETE_USER";
 
 export const SET_USER_EDIT = "SET_USER_EDIT";
+
+export const SET_EMAIL_VERYFY = "SET_EMAIL_VERYFY";
+export const LOGOUT = "LOGOUT";
+
+export const dataFieldRegister = [
+  {
+    name: "fullName",
+    label: "Full Name",
+    placeholder: "Enter your name",
+    type: "text"
+  },
+  {
+    name: "email",
+    label: "Email",
+    placeholder: "Enter your email",
+    type: "email"
+  },
+  {
+    name: "password",
+    label: "Password",
+    placeholder: "Enter your password",
+    type: "password"
+  },
+  {
+    name: "cfPassword",
+    label: "Confirm Password",
+    placeholder: "Confirm your password",
+    type: "password"
+  },
+]
