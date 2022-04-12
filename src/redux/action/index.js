@@ -8,6 +8,8 @@ import {
   GET_LIST_USER_FAIL,
   GET_LIST_USER_SUCCESS,
   LOGIN_SUCCESS,
+  LOGOUT,
+  SET_EMAIL_VERYFY,
   SET_USER_EDIT,
 } from "../../constant";
 import axios from "axios";
@@ -44,6 +46,29 @@ export const login = (params) => async (dispatch) => {
     toastError(error.response.data.error);
   }
 };
+
+export const register = (params) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${url}/auth/register`, { ...params });
+    console.log(res.data)
+    dispatch({
+      type: SET_EMAIL_VERYFY,
+      payload: params.email
+    })
+    toastSuccess(res.data.success);
+    history.push("/verify-register");
+  } catch (error) {
+    toastError(error.response.data.error);
+  }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem("token");
+  dispatch({
+    type: LOGOUT,
+    payload: {}
+  })
+}
 
 export const getListUser = (params) => async (dispatch) => {
   try {

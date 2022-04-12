@@ -4,35 +4,39 @@ import { Avatar, Button, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Form, Formik } from "formik";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import Copyright from "../../components/Copyright";
 import CustomField from "../../components/CustomField";
 import "./style.scss";
+import { dataFieldRegister } from "../../constant";
+import { register } from "../../redux/action";
 
 function Register(props) {
+  const dispatch = useDispatch();
   const initialValues = {
-    fullname: "",
+    fullName: "",
     email: "",
     password: "",
-    cf_password: "",
+    cfPassword: "",
   };
   const validateSchema = Yup.object().shape({
-    fullname: Yup.string().required("Required!"),
+    fullName: Yup.string().required("Required!"),
     email: Yup.string().required("Required!").email("Email Invalid!"),
     password: Yup.string().min(8, "Too Short!").required("Required!"),
-    cf_password: Yup.string()
+    cfPassword: Yup.string()
       .min(8, "Too Short!")
       .required("Required!")
       .oneOf([Yup.ref("password"), null], "Passwords must match"),
   });
 
   const handleSubmitForm = (values) => {
-    console.log(values);
+    dispatch(register(values));
   };
   return (
-    <section className="home">
-      <Box className="home__container">
+    <section className="register">
+      <Box className="register__container">
         <Box>
           <Avatar sx={{ m: "1px auto", bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
@@ -47,28 +51,15 @@ function Register(props) {
           onSubmit={(values) => handleSubmitForm(values)}
         >
           <Form>
-            <CustomField
-              name="fullname"
-              label="Full name"
-              placeholder="Enter your full name"
-            />
-            <CustomField
-              name="email"
-              label="Email"
-              placeholder="Enter your email"
-            />
-            <CustomField
-              name="password"
-              label="Password"
-              type="password"
-              placeholder="Enter your password"
-            />
-            <CustomField
-              name="cf_password"
-              label="Confirm Password"
-              type="password"
-              placeholder="Confirm your password"
-            />
+            {dataFieldRegister.map((element, index) => (
+              <CustomField
+                key={index}
+                name={element.name}
+                label={element.label}
+                placeholder={element.placeholder}
+                type={element.type}
+              />
+            ))}
             <Button
               type="submit"
               variant="contained"
