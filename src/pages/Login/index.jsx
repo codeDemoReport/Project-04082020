@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import Copyright from "../../components/Copyright";
@@ -19,10 +19,13 @@ import { login } from "./../../redux/action";
 import "./style.scss";
 
 function Login(props) {
+  const [remember, setRemember] = useState(false);
+  const prevEmail = useMemo(() => localStorage.getItem("prevEmail"), []);
+
   const dispatch = useDispatch();
 
   const initialValues = {
-    email: "",
+    email: prevEmail || "",
     password: "",
   };
   const validateSchema = Yup.object().shape({
@@ -31,7 +34,12 @@ function Login(props) {
   });
 
   const handleSubmitForm = (values) => {
-    dispatch(login(values));
+    dispatch(
+      login({
+        ...values,
+        checkRemember: remember,
+      })
+    );
   };
 
   return (
@@ -56,6 +64,7 @@ function Login(props) {
               label="Email"
               placeholder="Enter your email..."
               type="text"
+              prevEmail={prevEmail}
             />
             <CustomField
               name="password"
@@ -65,7 +74,13 @@ function Login(props) {
             />
             <FormControlLabel
               sx={{ display: "flex", justifyItems: "start" }}
-              control={<Checkbox value="remember" color="primary" />}
+              control={
+                <Checkbox
+                  value="remember"
+                  color="primary"
+                  onChange={() => setRemember(!remember)}
+                />
+              }
               label="Remember me"
             />
             <Button

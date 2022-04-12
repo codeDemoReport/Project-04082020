@@ -1,14 +1,12 @@
-import Register from "./pages/Register";
-import Home from "./pages/Home";
-import ListUser from "./pages/ListUser";
-import Login from "./pages/Login";
-import history from "./utils/history";
-import ModifyUser from "./pages/ListUser/ModifyUser";
-import { Route } from "react-router-dom";
-import { Switch } from "react-router-dom";
-import { Router } from "react-router-dom";
+import { Route, Router, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
+import Home from "./pages/Home";
+import ListUser from "./pages/ListUser";
+import ModifyUser from "./pages/ListUser/ModifyUser";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import history from "./utils/history";
 
 function App() {
   return (
