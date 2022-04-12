@@ -71,45 +71,55 @@ function ListUser(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {listUser?.map((user, index) => (
-                <TableRow
-                  key={user._id}
-                  sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
-                    cursor: "pointer",
-                  }}
-                  hover
-                >
-                  <TableCell component="th" scope="product">
-                    {index + 1}
-                  </TableCell>
-                  <TableCell>{user.fullName}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.isAdmin ? "Admin" : "User"}</TableCell>
-                  <TableCell>
-                    <Box className="user__icon">
-                      <div onClick={() => handleClickIconEdit(user)}>
-                        <EditIcon
-                          sx={{
-                            fontSize: "2rem",
-                            margin: "0 4px",
-                            color: "#3f89eb",
-                          }}
-                        />
-                      </div>
-                      <div onClick={() => handleClickIconDelete(user)}>
-                        <DeleteForeverIcon
-                          sx={{
-                            fontSize: "2rem",
-                            margin: "0 4px",
-                            color: "red",
-                          }}
-                        />
-                      </div>
-                    </Box>
+              {listUser?.length > 0 ? (
+                <>
+                  {listUser?.map((user, index) => (
+                    <TableRow
+                      key={user._id}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        cursor: "pointer",
+                      }}
+                      hover
+                    >
+                      <TableCell component="th" scope="product">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell>{user.fullName}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>{user.isAdmin ? "Admin" : "User"}</TableCell>
+                      <TableCell>
+                        <Box className="user__icon">
+                          <div onClick={() => handleClickIconEdit(user)}>
+                            <EditIcon
+                              sx={{
+                                fontSize: "2rem",
+                                margin: "0 4px",
+                                color: "#3f89eb",
+                              }}
+                            />
+                          </div>
+                          <div onClick={() => handleClickIconDelete(user)}>
+                            <DeleteForeverIcon
+                              sx={{
+                                fontSize: "2rem",
+                                margin: "0 4px",
+                                color: "red",
+                              }}
+                            />
+                          </div>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </>
+              ) : (
+                <TableRow>
+                  <TableCell align="center" size="medium">
+                    <h3>No Data</h3>
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -117,7 +127,7 @@ function ListUser(props) {
       <CustomDialog
         open={openDelete}
         setOpen={setOpenDelete}
-        content={`Bạn chắc chắn muốn xóa user #${userDelete.fullName} ?`}
+        content={`Bạn muốn xóa user có email #${userDelete.email} ?`}
         handleClickBtnOK={handleDeleteUser}
       />
     </section>
