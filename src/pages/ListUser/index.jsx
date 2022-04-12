@@ -13,23 +13,45 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import CustomDialog from "../../components/CustomDialog";
 import history from "../../utils/history";
+import { setUserEdit } from "./../../redux/action";
 import "./style.scss";
+import { toastSuccess } from "./../../utils/toast";
 
 function ListUser(props) {
   const [openDelete, setOpenDelete] = useState(false);
   const [listUser, setListUser] = useState([]);
+  const [userDelete, setUserDelete] = useState({});
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
       .get("http://192.168.68.51:3000/api/user")
-      .then((data) => setListUser(data.data.user))
+      .then((data) => setListUser(data.data.users))
       .catch((err) => console.log(err));
   }, []);
 
+  const handleClickIconEdit = (user) => {
+    history.push(`/list-user/edit/${user._id}`);
+    dispatch(setUserEdit(user));
+  };
+
+  const handleClickIconDelete = (user) => {
+    setOpenDelete(true);
+    setUserDelete(user);
+  };
+
   const handleDeleteUser = () => {
-    console.log(openDelete);
+    axios
+      .delete(`http://192.168.68.51:3000/api/user/${userDelete._id}`)
+      .then((data) => {
+        toastSuccess("Xóa thành công!");
+        setOpenDelete(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -50,7 +72,7 @@ function ListUser(props) {
                 <TableCell>STT</TableCell>
                 <TableCell>Full Name</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Password</TableCell>
+                <TableCell>Role</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -69,14 +91,10 @@ function ListUser(props) {
                   </TableCell>
                   <TableCell>{user.fullName}</TableCell>
                   <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.password}</TableCell>
+                  <TableCell>{user.isAdmin ? "Admin" : "User"}</TableCell>
                   <TableCell>
                     <Box className="user__icon">
-                      <div
-                        onClick={() =>
-                          history.push(`/list-user/edit/${user._id}`)
-                        }
-                      >
+                      <div onClick={() => handleClickIconEdit(user)}>
                         <EditIcon
                           sx={{
                             fontSize: "2rem",
@@ -85,7 +103,7 @@ function ListUser(props) {
                           }}
                         />
                       </div>
-                      <div onClick={() => setOpenDelete(true)}>
+                      <div onClick={() => handleClickIconDelete(user)}>
                         <DeleteForeverIcon
                           sx={{
                             fontSize: "2rem",
@@ -105,7 +123,7 @@ function ListUser(props) {
       <CustomDialog
         open={openDelete}
         setOpen={setOpenDelete}
-        content={`Bạn chắc chắn muốn xóa user # ?`}
+        content={`Bạn chắc chắn muốn xóa user #${userDelete.fullName} ?`}
         handleClickBtnOK={handleDeleteUser}
       />
     </section>

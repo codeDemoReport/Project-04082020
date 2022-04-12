@@ -12,4 +12,10 @@
         margin: auto 0;
         text-align: center;
     }
+
+    &__btn {
+        display: flex;
+        justify-content: end;
+        margin-top: 16px;
+    }
 }
