@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import Copyright from "../../components/Copyright";
 import CustomField from "../../components/CustomField";
 import "./style.scss";
-import { dataFieldRegister } from "../../constant";
+import { dataFieldRegister, dataArr } from "../../constant";
 import { register } from "../../redux/action";
 
 function Register(props) {
@@ -19,13 +19,13 @@ function Register(props) {
     fullName: "",
     email: "",
     password: "",
-    cfPassword: "",
+    confirmPassword: "",
   };
   const validateSchema = Yup.object().shape({
     fullName: Yup.string().required("Required!"),
     email: Yup.string().required("Required!").email("Email Invalid!"),
     password: Yup.string().min(8, "Too Short!").required("Required!"),
-    cfPassword: Yup.string()
+    confirmPassword: Yup.string()
       .min(8, "Too Short!")
       .required("Required!")
       .oneOf([Yup.ref("password"), null], "Passwords must match"),
@@ -51,7 +51,7 @@ function Register(props) {
           onSubmit={(values) => handleSubmitForm(values)}
         >
           <Form>
-            {dataFieldRegister.map((element, index) => (
+            {dataArr.map((element, index) => (
               <CustomField
                 key={index}
                 name={element.name}

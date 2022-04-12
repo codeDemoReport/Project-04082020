@@ -45,20 +45,21 @@ export const login = (params) => async (dispatch) => {
 export const register = (params) => async (dispatch) => {
   try {
     const res = await axios.post(`${url}/auth/register`, { ...params });
-    console.log(res.data)
+    
     dispatch({
       type: SET_EMAIL_VERYFY,
       payload: params.email
     })
-    toastSuccess(res.data.success);
-    history.push("/verify-register");
+    toastSuccess(res.data.msg);
+    history.push("/");
   } catch (error) {
-    toastError(error.response.data.error);
+    toastError(error.response.data.msg);
   }
 };
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
+  localStorage.removeItem("info");
   dispatch({
     type: LOGOUT,
     payload: {}

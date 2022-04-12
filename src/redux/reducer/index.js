@@ -6,7 +6,8 @@ import {
   LOGIN_SUCCESS,
   SET_USER_EDIT,
   SET_EMAIL_VERYFY,
-  LOGOUT
+  LOGOUT,
+  PROGRESS
 } from "../../constant";
 
 const initialState = {
@@ -14,7 +15,8 @@ const initialState = {
   dataDelete: {},
   getUserEdit: {},
   infoUser: {},
-  emailVerify: ""
+  emailVerify: "",
+  loading: false
 };
 
 function userReducer(state = initialState, action) {
@@ -25,6 +27,12 @@ function userReducer(state = initialState, action) {
         infoUser: { ...action.payload },
       };
     }
+    case PROGRESS: {
+      return {
+        ...state,
+        loading: action.payload
+      }
+      }
     case LOGOUT: {
       return {
         ...state,
