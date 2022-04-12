@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import Copyright from "../../components/Copyright";
 import CustomField from "../../components/CustomField";
 import "./style.scss";
-import { dataFieldRegister, dataArr } from "../../constant";
+import { dataArr } from "../../constant";
 import { register } from "../../redux/action";
 
 function Register(props) {
