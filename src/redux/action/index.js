@@ -1,18 +1,13 @@
+import axios from "axios";
 import {
-  CREATE_USER_FAIL,
-  CREATE_USER_SUCCESS,
-  DELETE_USER_FAIL,
-  DELETE_USER_SUCCESS,
-  EDIT_USER_FAIL,
-  EDIT_USER_SUCCESS,
+  DELETE_USER,
   GET_LIST_USER_FAIL,
   GET_LIST_USER_SUCCESS,
   LOGIN_SUCCESS,
   SET_USER_EDIT,
 } from "../../constant";
-import axios from "axios";
-import { toastError, toastSuccess } from "../../utils/toast";
 import history from "../../utils/history";
+import { toastError, toastSuccess } from "../../utils/toast";
 
 const url = "http://192.168.68.51:3000/api";
 
@@ -65,17 +60,10 @@ export const createUser = (params) => async (dispatch) => {
   try {
     const response = await axios.post(`${url}/user`, { ...params });
 
-    dispatch({
-      type: CREATE_USER_SUCCESS,
-      payload: response.data,
-    });
-    toastSuccess("Thêm thành công!");
+    toastSuccess(response.data.success);
     history.push("/list-user");
   } catch (error) {
-    dispatch({
-      type: CREATE_USER_FAIL,
-      payload: error.message,
-    });
+    toastError(error.response.data.error);
   }
 };
 
@@ -85,15 +73,12 @@ export const deleteUser = (params) => async (dispatch) => {
     const response = await axios.delete(`${url}/user/${id}`);
 
     dispatch({
-      type: DELETE_USER_SUCCESS,
+      type: DELETE_USER,
       payload: response.data,
     });
-    toastSuccess("Xóa thành công!");
+    toastSuccess(response.data.message);
   } catch (error) {
-    dispatch({
-      type: DELETE_USER_FAIL,
-      payload: error.message,
-    });
+    toastError(error.response.data.error);
   }
 };
 
@@ -102,17 +87,10 @@ export const editUser = (params) => async (dispatch) => {
   try {
     const response = await axios.put(`${url}/user/${id}`, { ...params });
 
-    dispatch({
-      type: EDIT_USER_SUCCESS,
-      payload: response.data,
-    });
-    toastSuccess("Cập nhật thành công!");
+    toastSuccess(response.data.message);
     history.push("/list-user");
   } catch (error) {
-    dispatch({
-      type: EDIT_USER_FAIL,
-      payload: error.message,
-    });
+    toastError(error.response.data.error);
   }
 };
 
