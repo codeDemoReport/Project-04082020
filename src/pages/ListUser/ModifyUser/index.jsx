@@ -8,7 +8,7 @@ import Copyright from "../../../components/Copyright";
 import CustomField from "../../../components/CustomField";
 import SelectField from "../../../components/SelectField";
 import { dataArr } from "../../../constant";
-import { setUserEdit } from "../../../redux/action";
+import { createUser, editUser, setUserEdit } from "../../../redux/action";
 import history from "../../../utils/history";
 import "./style.scss";
 
@@ -19,7 +19,6 @@ function AddOrEdit({ location }) {
   const [role, setRole] = useState(
     getUserEdit?.isAdmin === 0 ? 0 : getUserEdit?.isAdmin === 1 ? 1 : ""
   );
-  console.log("Log : role", role);
 
   const check = location.pathname.indexOf("edit") === -1;
 
@@ -34,21 +33,41 @@ function AddOrEdit({ location }) {
         email: getUserEdit.email,
       };
 
-  const validateSchema = Yup.object().shape({
-    fullName: Yup.string().required("Required!").min(3, "Too Short!"),
-    email: Yup.string().required("Required!").email("Invalid Email!"),
-    password: Yup.string().required("Required!").min(8, "Too short!"),
-    confirmPassword: Yup.string()
-      .required("Required!")
-      .oneOf([Yup.ref("password")], "Password must match!"),
-  });
+  const validateSchema = check
+    ? Yup.object().shape({
+        fullName: Yup.string().required("Required!").min(3, "Too Short!"),
+        email: Yup.string().required("Required!").email("Invalid Email!"),
+        password: Yup.string().required("Required!").min(8, "Too short!"),
+        confirmPassword: Yup.string()
+          .required("Required!")
+          .oneOf([Yup.ref("password")], "Password must match!"),
+      })
+    : Yup.object().shape({
+        fullName: Yup.string().required("Required!").min(3, "Too Short!"),
+        email: Yup.string().required("Required!").email("Invalid Email!"),
+      });
 
   const handleChangeRole = (value) => {
     setRole(value);
   };
 
   const handleSubmitForm = (values) => {
-    console.log("Log : values", values);
+    if (check) {
+      dispatch(
+        createUser({
+          ...values,
+          isAdmin: role,
+        })
+      );
+    } else {
+      dispatch(
+        editUser({
+          ...values,
+          id: getUserEdit._id,
+          isAdmin: role,
+        })
+      );
+    }
   };
 
   return (

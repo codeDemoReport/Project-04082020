@@ -11,28 +11,23 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CustomDialog from "../../components/CustomDialog";
 import history from "../../utils/history";
-import { setUserEdit } from "./../../redux/action";
+import { deleteUser, getListUser, setUserEdit } from "./../../redux/action";
 import "./style.scss";
-import { toastSuccess } from "./../../utils/toast";
 
 function ListUser(props) {
   const [openDelete, setOpenDelete] = useState(false);
-  const [listUser, setListUser] = useState([]);
   const [userDelete, setUserDelete] = useState({});
 
   const dispatch = useDispatch();
+  const { listUser, dataDelete } = useSelector((state) => state.userReducer);
 
   useEffect(() => {
-    axios
-      .get("http://192.168.68.51:3000/api/user")
-      .then((data) => setListUser(data.data.users))
-      .catch((err) => console.log(err));
-  }, []);
+    dispatch(getListUser());
+  }, [dataDelete]);
 
   const handleClickIconEdit = (user) => {
     history.push(`/list-user/edit/${user._id}`);
@@ -45,13 +40,12 @@ function ListUser(props) {
   };
 
   const handleDeleteUser = () => {
-    axios
-      .delete(`http://192.168.68.51:3000/api/user/${userDelete._id}`)
-      .then((data) => {
-        toastSuccess("Xóa thành công!");
-        setOpenDelete(false);
+    dispatch(
+      deleteUser({
+        id: userDelete._id,
       })
-      .catch((err) => console.log(err));
+    );
+    setOpenDelete(false);
   };
 
   return (
