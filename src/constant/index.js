@@ -32,25 +32,27 @@ export const dataArr = [
 export const MenuLeftHeader = [
   {
     title: "Home",
-    path: "/"
+    path: "/",
   },
   {
     title: "Users",
-    path: "/list-user"
+    path: "/list-user",
   },
   {
     title: "Blog",
-    path: "/blog"
-  }
-]
+    path: "/blog",
+  },
+];
 
 export const MenuRightHeader = [
   {
     title: "Login",
-    path: "/login"
+    path: "/login",
   },
   {
     title: "Register",
-    path: "/register"
-  }
-]
+    path: "/register",
+  },
+];
+
+export const SET_USER_EDIT = "SET_USER_EDIT";

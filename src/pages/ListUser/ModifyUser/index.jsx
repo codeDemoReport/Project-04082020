@@ -2,31 +2,36 @@ import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import Copyright from "../../../components/Copyright";
 import CustomField from "../../../components/CustomField";
+import SelectField from "../../../components/SelectField";
 import { dataArr } from "../../../constant";
+import { setUserEdit } from "../../../redux/action";
+import history from "../../../utils/history";
 import "./style.scss";
-import axios from "axios";
 
-function AddOrEdit({ location, match }) {
-  const [user, setUser] = useState({});
+function AddOrEdit({ location }) {
+  const dispatch = useDispatch();
+  const { getUserEdit } = useSelector((state) => state.userReducer);
+
+  const [role, setRole] = useState(
+    getUserEdit?.isAdmin === 0 ? 0 : getUserEdit?.isAdmin === 1 ? 1 : ""
+  );
+  console.log("Log : role", role);
+
   const check = location.pathname.indexOf("edit") === -1;
 
   useEffect(() => {
-    axios
-      .get(`http://192.168.68.51:3000/api/user/${match.params.id}`)
-      .then((data) => setUser(data.data.user))
-      .catch((err) => console.log(err));
+    return () => dispatch(setUserEdit({}));
   }, []);
 
   const initialValues = check
     ? { fullName: "", email: "", password: "", confirmPassword: "" }
     : {
-        fullName: user.fullName,
-        email: user.email,
-        password: user.password,
-        confirmPassword: user.password,
+        fullName: getUserEdit.fullName,
+        email: getUserEdit.email,
       };
 
   const validateSchema = Yup.object().shape({
@@ -38,7 +43,13 @@ function AddOrEdit({ location, match }) {
       .oneOf([Yup.ref("password")], "Password must match!"),
   });
 
-  const handleSubmitForm = (values) => {};
+  const handleChangeRole = (value) => {
+    setRole(value);
+  };
+
+  const handleSubmitForm = (values) => {
+    console.log("Log : values", values);
+  };
 
   return (
     <section className="modify">
@@ -52,23 +63,49 @@ function AddOrEdit({ location, match }) {
           onSubmit={(values) => handleSubmitForm(values)}
         >
           <Form>
-            {dataArr.map((item) => (
-              <CustomField
-                key={item.id}
-                name={item.name}
-                label={item.label}
-                placeholder={item.placeholder}
-                type={item.type}
-              />
-            ))}
-
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ marginTop: 2, width: "100%" }}
-            >
-              Submit
-            </Button>
+            {check ? (
+              <>
+                {dataArr.map((item) => (
+                  <CustomField
+                    key={item.id}
+                    name={item.name}
+                    label={item.label}
+                    placeholder={item.placeholder}
+                    type={item.type}
+                    disabled={item.disabled}
+                  />
+                ))}
+              </>
+            ) : (
+              <>
+                <CustomField
+                  name="fullName"
+                  label="Full Name"
+                  placeholder="Enter your full name..."
+                  type="text"
+                />
+                <CustomField
+                  name="email"
+                  label="Email"
+                  placeholder="Enter your email..."
+                  type="email"
+                  disabled={true}
+                />
+              </>
+            )}
+            <SelectField value={role} handleChange={handleChangeRole} />
+            <Box className="modify__btn">
+              <Button type="submit" variant="contained" sx={{ marginRight: 2 }}>
+                Submit
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                onClick={() => history.push("/list-user")}
+              >
+                Back
+              </Button>
+            </Box>
             <Copyright sx={{ mt: 8, mb: 4 }} />
           </Form>
         </Formik>
