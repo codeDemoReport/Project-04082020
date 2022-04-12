@@ -55,7 +55,9 @@ function AddOrEdit({ location }) {
     if (check) {
       dispatch(
         createUser({
-          ...values,
+          fullName: values.fullName,
+          email: values.email,
+          password: values.password,
           isAdmin: role,
         })
       );
