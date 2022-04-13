@@ -22,6 +22,7 @@ function Header(props) {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
+
   const info = JSON.parse(localStorage.getItem("info"));
 
   useEffect(() => {
@@ -143,7 +144,7 @@ function Header(props) {
                         fontFamily: "sans-serif",
                       }}
                     >
-                      {user.fullName || info?.fullName}
+                      {user.fullName || info.fullName}
                     </Typography>
                   </IconButton>
                 </Tooltip>
