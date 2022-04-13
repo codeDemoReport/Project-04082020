@@ -22,6 +22,7 @@ function Header(props) {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
+  const info = JSON.parse(localStorage.getItem("info"));
 
   useEffect(() => {
     if (userReducer.infoUser) setUser(userReducer.infoUser);
@@ -125,7 +126,7 @@ function Header(props) {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {user._id ? (
+            {user._id || info ? (
               <>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -142,7 +143,7 @@ function Header(props) {
                         fontFamily: "sans-serif",
                       }}
                     >
-                      {user.fullName}
+                      {user.fullName || info?.fullName}
                     </Typography>
                   </IconButton>
                 </Tooltip>

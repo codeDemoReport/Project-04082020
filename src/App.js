@@ -11,12 +11,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import history from "./utils/history";
 
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 function App() {
-
-  
-
   return (
     <div className="App">
       <Router history={history}>
@@ -34,7 +31,7 @@ function App() {
           />
           <Route path={"/verify-register"} component={WatingVerify} exact />
           <Route
-            path={"/verify-register/:token"}
+            path={"/verify-register-success"}
             component={VerifyToken}
             exact
           />
