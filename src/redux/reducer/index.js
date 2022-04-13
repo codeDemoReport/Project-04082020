@@ -1,13 +1,12 @@
 import { combineReducers } from "redux";
 import {
   DELETE_USER,
-  GET_LIST_USER_FAIL,
-  GET_LIST_USER_SUCCESS,
+  GET_LIST_USER,
   LOGIN_SUCCESS,
   SET_USER_EDIT,
-  SET_EMAIL_VERYFY,
+  SET_EMAIL_VERIFY,
   LOGOUT,
-  PROGRESS
+  PROGRESS,
 } from "../../constant";
 
 const initialState = {
@@ -16,7 +15,7 @@ const initialState = {
   getUserEdit: {},
   infoUser: {},
   emailVerify: "",
-  loading: false
+  loading: false,
 };
 
 function userReducer(state = initialState, action) {
@@ -30,23 +29,20 @@ function userReducer(state = initialState, action) {
     case PROGRESS: {
       return {
         ...state,
-        loading: action.payload
-      }
-      }
+        loading: action.payload,
+      };
+    }
     case LOGOUT: {
       return {
         ...state,
         infoUser: action.payload,
       };
-      }
-    case GET_LIST_USER_SUCCESS: {
+    }
+    case GET_LIST_USER: {
       return {
         ...state,
         listUser: [...action.payload],
       };
-    }
-    case GET_LIST_USER_FAIL: {
-      return state;
     }
     case DELETE_USER: {
       return {
@@ -60,12 +56,12 @@ function userReducer(state = initialState, action) {
         getUserEdit: { ...action.payload },
       };
     }
-    case SET_EMAIL_VERYFY: {
+    case SET_EMAIL_VERIFY: {
       return {
         ...state,
-        emailVerify: action.payload
-      }
-      }
+        emailVerify: action.payload,
+      };
+    }
     default:
       return state;
   }

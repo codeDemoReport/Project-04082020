@@ -57,39 +57,12 @@ export const MenuRightHeader = [
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 
-export const GET_LIST_USER_SUCCESS = "GET_LIST_USER_SUCCESS";
-export const GET_LIST_USER_FAIL = "GET_LIST_USER_FAIL";
+export const GET_LIST_USER = "GET_LIST_USER";
 
 export const DELETE_USER = "DELETE_USER";
 
 export const SET_USER_EDIT = "SET_USER_EDIT";
 
-export const SET_EMAIL_VERYFY = "SET_EMAIL_VERYFY";
+export const SET_EMAIL_VERIFY = "SET_EMAIL_VERIFY";
 export const LOGOUT = "LOGOUT";
 export const PROGRESS = "PROGRESS";
-export const dataFieldRegister = [
-  {
-    name: "fullName",
-    label: "Full Name",
-    placeholder: "Enter your name",
-    type: "text"
-  },
-  {
-    name: "email",
-    label: "Email",
-    placeholder: "Enter your email",
-    type: "email"
-  },
-  {
-    name: "password",
-    label: "Password",
-    placeholder: "Enter your password",
-    type: "password"
-  },
-  {
-    name: "cfPassword",
-    label: "Confirm Password",
-    placeholder: "Confirm your password",
-    type: "password"
-  },
-]

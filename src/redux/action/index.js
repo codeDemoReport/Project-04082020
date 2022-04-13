@@ -1,19 +1,16 @@
 import axios from "axios";
 import {
   DELETE_USER,
-  GET_LIST_USER_FAIL,
-  GET_LIST_USER_SUCCESS,
+  GET_LIST_USER,
   LOGIN_SUCCESS,
   LOGOUT,
-  SET_EMAIL_VERYFY,
+  SET_EMAIL_VERIFY,
   SET_USER_EDIT,
 } from "../../constant";
 import history from "../../utils/history";
 import { toastError, toastSuccess } from "../../utils/toast";
 
 const url = "http://192.168.68.51:3000/api";
-const token = localStorage.getItem("token");
-const headers = `Authorization: Bearer ${token}`;
 
 export const login = (params) => async (dispatch) => {
   const { checkRemember } = params;
@@ -49,7 +46,7 @@ export const register = (params) => async (dispatch) => {
     const res = await axios.post(`${url}/auth/register`, { ...params });
 
     dispatch({
-      type: SET_EMAIL_VERYFY,
+      type: SET_EMAIL_VERIFY,
       payload: params.email,
     });
     toastSuccess(res.data.msg);
@@ -70,56 +67,73 @@ export const logout = () => (dispatch) => {
 };
 
 export const getListUser = (params) => async (dispatch) => {
+  const token = localStorage.getItem("token");
+  const headers = { authorization: `Bearer ${token}` };
   try {
-    const response = await axios.get(`${url}/user`);
+    const response = await axios.get(`${url}/user`, { headers });
 
     dispatch({
-      type: GET_LIST_USER_SUCCESS,
+      type: GET_LIST_USER,
       payload: response.data.users,
     });
   } catch (error) {
-    dispatch({
-      type: GET_LIST_USER_FAIL,
-      payload: error.message,
-    });
+    toastError(error.response.data.error);
+    if (error.response.data.status === 456) dispatch(logout());
   }
 };
 
 export const createUser = (params) => async (dispatch) => {
+  const token = localStorage.getItem("token");
+  const headers = { authorization: `Bearer ${token}` };
   try {
-    const response = await axios.post(`${url}/user`, { ...params });
+    const response = await axios.post(
+      `${url}/user`,
+      { ...params },
+      { headers }
+    );
 
-    toastSuccess(response.data.msg);
+    if (response.data.success) toastSuccess(response.data.success);
     history.push("/list-user");
   } catch (error) {
-    toastError(error.response.data.msg);
+    toastError(error.response.data.error);
+    if (error.response.data.status === 456) dispatch(logout());
   }
 };
 
 export const deleteUser = (params) => async (dispatch) => {
+  const token = localStorage.getItem("token");
+  const headers = { authorization: `Bearer ${token}` };
   const { id } = params;
   try {
-    const response = await axios.delete(`${url}/user/${id}`);
+    const response = await axios.delete(`${url}/user/${id}`, { headers });
 
     dispatch({
       type: DELETE_USER,
       payload: response.data,
     });
-    toastSuccess(response.data.msg);
+    if (response.data.success) toastSuccess(response.data.success);
   } catch (error) {
-    toastError(error.response.data.msg);
+    toastError(error.response.data.error);
+    if (error.response.data.status === 456) dispatch(logout());
   }
 };
 
 export const editUser = (params) => async (dispatch) => {
+  const token = localStorage.getItem("token");
+  const headers = { authorization: `Bearer ${token}` };
   const { id } = params;
   try {
-    const response = await axios.put(`${url}/user/${id}`, { ...params });
+    const response = await axios.put(
+      `${url}/user/${id}`,
+      { ...params },
+      { headers }
+    );
 
-    toastSuccess(response.data.msg);
+    if (response.data.success) toastSuccess(response.data.success);
     history.push("/list-user");
   } catch (error) {
-    toastError(error.response.data.msg);
+    toastError(error.response.data.error);
+    if (error.response.data.status === 456) dispatch(logout());
   }
 };
 

@@ -22,8 +22,6 @@ function ListUser(props) {
   const [openDelete, setOpenDelete] = useState(false);
   const [userDelete, setUserDelete] = useState({});
 
-  console.log("Re-render List User");
-
   const dispatch = useDispatch();
   const { listUser, dataDelete } = useSelector((state) => state.userReducer);
 
