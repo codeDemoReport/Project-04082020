@@ -42,7 +42,7 @@ function Register(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Register
           </Typography>
         </Box>
         <Formik
@@ -70,7 +70,7 @@ function Register(props) {
             <Grid container sx={{ marginTop: 2 }}>
               <Grid item sx={{ marginLeft: "150px" }}>
                 <Link to="/login" variant="body2">
-                  {"Already have an account? Sign in"}
+                  {"Already have an account? Log in"}
                 </Link>
               </Grid>
             </Grid>

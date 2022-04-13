@@ -2,6 +2,7 @@ import { Button, Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import history from "../../utils/history";
 // import EmailIcon from "@mui/icons-material/Email";
 
 function VerifyToken(props) {
@@ -16,7 +17,11 @@ function VerifyToken(props) {
             Your email address has been verified
           </Typography>
           <br />
-          <Button variant="contained" size="large">
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => history.push("/login")}
+          >
             Login Now
           </Button>
         </Box>

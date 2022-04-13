@@ -16,6 +16,8 @@ function AddOrEdit({ location }) {
   const dispatch = useDispatch();
   const { getUserEdit } = useSelector((state) => state.userReducer);
 
+  console.log("Re-render Modify");
+
   const [role, setRole] = useState(
     getUserEdit?.isAdmin === 0 ? 0 : getUserEdit?.isAdmin === 1 ? 1 : ""
   );
