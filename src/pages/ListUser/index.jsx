@@ -3,6 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
   Button,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -18,16 +19,21 @@ import history from "../../utils/history";
 import { deleteUser, getListUser, setUserEdit } from "./../../redux/action";
 import "./style.scss";
 
+const limit = 4;
+
 function ListUser(props) {
   const [openDelete, setOpenDelete] = useState(false);
   const [userDelete, setUserDelete] = useState({});
+  const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
-  const { listUser, dataDelete } = useSelector((state) => state.userReducer);
+  const { users, dataDelete } = useSelector((state) => state.userReducer);
+
+  const { userList, total } = users;
 
   useEffect(() => {
-    dispatch(getListUser());
-  }, [dataDelete]);
+    dispatch(getListUser({ page, limit }));
+  }, [page, dataDelete]);
 
   const handleClickIconEdit = (user) => {
     history.push(`/list-user/edit/${user._id}`);
@@ -71,9 +77,9 @@ function ListUser(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {listUser?.length > 0 ? (
+              {userList?.length > 0 ? (
                 <>
-                  {listUser?.map((user, index) => (
+                  {userList?.map((user, index) => (
                     <TableRow
                       key={user._id}
                       sx={{
@@ -124,6 +130,15 @@ function ListUser(props) {
           </Table>
         </TableContainer>
       </Box>
+      {total && (
+        <Pagination
+          count={Math.ceil(total / limit)}
+          variant="outlined"
+          shape="rounded"
+          onChange={(e, page) => setPage(page)}
+          className="user__pagination"
+        />
+      )}
       <CustomDialog
         open={openDelete}
         setOpen={setOpenDelete}

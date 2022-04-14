@@ -10,4 +10,10 @@
     &__icon {
         display: flex;
     }
+
+    &__pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 24px;
+    }
 }

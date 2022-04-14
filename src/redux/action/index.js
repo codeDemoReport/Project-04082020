@@ -69,12 +69,16 @@ export const logout = () => (dispatch) => {
 export const getListUser = (params) => async (dispatch) => {
   const token = localStorage.getItem("token");
   const headers = { authorization: `Bearer ${token}` };
+  const { page, limit } = params;
   try {
-    const response = await axios.get(`${url}/user`, { headers });
+    const response = await axios.get(
+      `${url}/user?page=${page}&limit=${limit}`,
+      { headers }
+    );
 
     dispatch({
       type: GET_LIST_USER,
-      payload: response.data.users,
+      payload: response.data,
     });
   } catch (error) {
     toastError(error.response.data.error);
