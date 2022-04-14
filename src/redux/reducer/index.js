@@ -10,7 +10,7 @@ import {
 } from "../../constant";
 
 const initialState = {
-  listUser: [],
+  users: {},
   dataDelete: {},
   getUserEdit: {},
   infoUser: {},
@@ -41,7 +41,7 @@ function userReducer(state = initialState, action) {
     case GET_LIST_USER: {
       return {
         ...state,
-        listUser: [...action.payload],
+        users: { ...action.payload },
       };
     }
     case DELETE_USER: {
