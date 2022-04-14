@@ -12,7 +12,7 @@ import { createUser, editUser, setUserEdit } from "../../../redux/action";
 import history from "../../../utils/history";
 import "./style.scss";
 
-function AddOrEdit({ location }) {
+function ModifyUser({ location }) {
   const dispatch = useDispatch();
   const { getUserEdit } = useSelector((state) => state.userReducer);
 
@@ -24,7 +24,7 @@ function AddOrEdit({ location }) {
 
   useEffect(() => {
     return () => dispatch(setUserEdit({}));
-  }, []);
+  }, [dispatch]);
 
   const initialValues = check
     ? { fullName: "", email: "", password: "", confirmPassword: "" }
@@ -135,4 +135,4 @@ function AddOrEdit({ location }) {
   );
 }
 
-export default AddOrEdit;
+export default ModifyUser;

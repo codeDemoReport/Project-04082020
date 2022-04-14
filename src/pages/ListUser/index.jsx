@@ -33,7 +33,7 @@ function ListUser(props) {
 
   useEffect(() => {
     dispatch(getListUser({ page, limit }));
-  }, [page, dataDelete]);
+  }, [page, dataDelete, dispatch]);
 
   const handleClickIconEdit = (user) => {
     history.push(`/list-user/edit/${user._id}`);
